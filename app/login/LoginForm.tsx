@@ -9,17 +9,13 @@ import { useAppStore } from "@/store/useAppStore"
 const LoginForm = () => {
 	const router = useRouter()
 	const form = useRef(null)
-
 	const email = useRef(null)
 	const password1 = useRef(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const [loginErrorMessage, setLoginErrorMessage] = useState("")
 
-
-
 	const handleUserPassLogin = async () => {
 		const promise = account.createEmailSession(email.current.value, password1.current.value)
-
 
 		promise.then(
 			async function (response) {
@@ -68,8 +64,11 @@ const LoginForm = () => {
 							{isLoading ? "Loging..." : "Login"}
 						</button>
 
-						<p className=" flex gap-2 text-xs pt-2 justify-center">
-							Don't have an account? <span className="text-[#7783B8] hover:cursor-pointer" onClick={() => router.push("/register")}>Register</span>
+						<p className=" flex justify-center gap-2 pt-2 text-xs">
+							Don't have an account?{" "}
+							<span className="text-[#7783B8] hover:cursor-pointer" onClick={() => router.push("/register")}>
+								Register
+							</span>
 						</p>
 					</div>
 				</form>

@@ -1,6 +1,9 @@
+import loginUser from "@/components/loginUser"
 import getAllClients from "@/lib/getAllClients"
+
 import { Client, User } from "@/typings"
 import { create } from "zustand"
+import { persist, devtools } from "zustand/middleware"
 
 type ClientStore = {
 	currentUserId: number | null
@@ -8,11 +11,15 @@ type ClientStore = {
 	isLoading: boolean
 	error: null
 	clients: any[] | null
-	getClients: () => void
-	setcurrentUserId: (user: User) => void
 }
 
-export const useAppStore = create<ClientStore>((set) => ({
+type Actions = {
+	getClients: () => void
+	setcurrentUserId: (id: number) => void
+	setcurrentUser: (user: User) => void
+}
+
+const clientStore = (set) => ({
 	currentUserId: null,
 	currentUser: null,
 	isLoading: true,
@@ -22,8 +29,8 @@ export const useAppStore = create<ClientStore>((set) => ({
 		try {
 			const allClients = await getAllClients()
 			set({ isLoading: false, clients: allClients })
-		} catch (err) {
-			set({ error: err.message, isLoading: false })
+		} catch (error) {
+			set({ error: error.message, isLoading: false })
 		}
 	},
 	setcurrentUserId: (id) => {
@@ -32,4 +39,13 @@ export const useAppStore = create<ClientStore>((set) => ({
 	setCurrentUser: (user: User) => {
 		set({ currentUser: user })
 	},
-}))
+})
+
+export const useAppStore = create<ClientStore & Actions>(
+	devtools(
+		persist(clientStore, {
+			name: "session",
+			storage,
+		})
+	)
+)
