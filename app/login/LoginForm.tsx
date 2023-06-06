@@ -21,7 +21,9 @@ const LoginForm = () => {
 		promise.then(
 			async function (response) {
 				form.current.reset()
-				setCurrentUser(response)
+				const user = await account.get()
+				setIsLoading(false)
+				await setCurrentUser(user)
 				router.push("/dashboard")
 			},
 			function (error) {

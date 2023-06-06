@@ -12,12 +12,21 @@ import Avatar from "react-avatar"
 import Lottie from "@novemberfiveco/lottie-react-light"
 import animationData from "@/components/json/goodbye.json"
 import loadingAnimation from "@/components/json/loading.json"
+import { useAppStore } from "@/store/useAppStore"
 
 export function AvatarMenu() {
 	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(false)
+	const currentUser = useAppStore((state) => state.currentUser)
+
+	const clearStorage = () => {
+		if (typeof window !== "undefined") {
+			localStorage.clear()
+		}
+	}
 
 	const handleLogout = async () => {
+		clearStorage()
 		setIsLoading(true)
 		const promise = await account.deleteSession("current")
 		const finisher = setTimeout(() => {
@@ -35,11 +44,11 @@ export function AvatarMenu() {
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<div className="hover:cursor-pointer">
-						<Avatar name="Alfredo Natal" size="45" textSizeRatio={2.5} round={true} color="#7783B8" />
+						<Avatar name={currentUser?.name} size="45" textSizeRatio={2.5} round={true} color="#7783B8" />
 					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className="mt-1 w-56 border-white/10 bg-white/5 text-white backdrop-blur-sm" align="end">
-					<DropdownMenuLabel className="text-base font-semibold tracking-wider">Alfredo Natal</DropdownMenuLabel>
+					<DropdownMenuLabel className="text-base font-semibold tracking-wider">{currentUser?.name}</DropdownMenuLabel>
 					<DropdownMenuSeparator className="bg-[#7783B8]" />
 					<DropdownMenuItem className="flex items-center gap-2 rounded-md p-2 text-base outline-none transition-[padding] duration-200 ease-linear hover:cursor-pointer hover:bg-[#7783b8] hover:pl-4">User Settings</DropdownMenuItem>
 					<DropdownMenuItem className="flex items-center gap-2 rounded-md p-2 text-base outline-none transition-[padding] duration-200 ease-linear hover:cursor-pointer hover:bg-[#7783b8] hover:pl-4" onClick={handleLogout}>

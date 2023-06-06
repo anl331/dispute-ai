@@ -3,37 +3,37 @@
 import { account, getUserData } from "@/appwrite"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { animationData } from "@/components/json/loading.json"
+import { loading } from "@/components/json/loading.json"
 import { Lottie } from "@novemberfiveco/lottie-react-light"
+import { useAppStore } from "@/store/useAppStore"
 
 export default function DashboardPage() {
 	const router = useRouter()
-	const [currentUser, setCurrentUser] = useState("")
 	const [isLoading, setIsLoading] = useState(true)
+	const currentUser = useAppStore((state) => state.currentUser)
 
-	const getUser = async () => {
+	const verifyCurrentUser = async () => {
 		getUserData().catch((error) => {
 			router.push("/login")
 		})
-
-		const user = await account.get()
-		setIsLoading(false)
-		setCurrentUser(user)
 	}
 
 	useEffect(() => {
-		getUser()
-	}, [getUser])
+		verifyCurrentUser()
+	}, [verifyCurrentUser])
+
+	// solves hydration issues
+	const [mounted, setMounted] = useState(false)
+	useEffect(() => setMounted(true), [])
+	if (!mounted) return null
 
 	return (
 		<div className="h-full w-full p-5 text-lg font-bold text-white">
-			{isLoading && (
-				<div className="flex h-full w-full items-center justify-center">
-					<Lottie animationData={animationData} loop={true} />
-					Loading...
+			{currentUser && (
+				<div className="flex h-full w-full ">
+					<p className="">{currentUser.name}</p>
 				</div>
 			)}
-			{currentUser && <div className="flex h-full w-full ">{currentUser.name}</div>}
 		</div>
 	)
 }
