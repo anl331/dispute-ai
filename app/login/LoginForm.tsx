@@ -14,8 +14,16 @@ const LoginForm = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [loginErrorMessage, setLoginErrorMessage] = useState("")
 	const setCurrentUser = useAppStore((state) => state.setCurrentUser)
+	const setGoogleUsed = useAppStore((state) => state.setGoogleUsed)
+
+	const clearStorage = () => {
+		if (typeof window !== "undefined") {
+			localStorage.clear()
+		}
+	}
 
 	const handleUserPassLogin = async () => {
+		// clearStorage()
 		const promise = account.createEmailSession(email.current.value, password1.current.value)
 
 		promise.then(
@@ -24,7 +32,7 @@ const LoginForm = () => {
 				const user = await account.get()
 				setIsLoading(false)
 				await setCurrentUser(user)
-				router.push("/dashboard")
+				router.push("/")
 			},
 			function (error) {
 				console.log(error.message)
@@ -39,7 +47,9 @@ const LoginForm = () => {
 	}
 
 	const handleGoogleLogin =() => {
-		account.createOAuth2Session("google" , "http://localhost:3000/dashboard" , "http://localhost:3000/login")
+		clearStorage()
+		setGoogleUsed(true)
+		account.createOAuth2Session("google" , "http://localhost:3000/" , "http://localhost:3000/login")
 	}
 
 	const handleSubmit = (event) => {

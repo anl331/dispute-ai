@@ -18,6 +18,8 @@ export function AvatarMenu() {
 	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(false)
 	const currentUser = useAppStore((state) => state.currentUser)
+	const setGoogleUsed = useAppStore((state) => state.setGoogleUsed)
+
 
 	const clearStorage = () => {
 		if (typeof window !== "undefined") {
@@ -26,6 +28,7 @@ export function AvatarMenu() {
 	}
 
 	const handleLogout = async () => {
+		setGoogleUsed(false)
 		clearStorage()
 		setIsLoading(true)
 		const promise = await account.deleteSession("current")

@@ -11,6 +11,19 @@ export default function DashboardPage() {
 	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(true)
 	const currentUser = useAppStore((state) => state.currentUser)
+	const googleUsed = useAppStore((state) => state.googleUsed)
+	const setCurrentUser = useAppStore((state) => state.setCurrentUser)
+	const setGoogleUsed = useAppStore((state) => state.setGoogleUsed)
+
+	const validate = async () => {
+		if (googleUsed) {
+			const user = await account.get()
+			setCurrentUser(user)
+			setGoogleUsed(false)
+		} else {
+			return false
+		}
+	}
 
 	const verifyCurrentUser = async () => {
 		getUserData().catch((error) => {
@@ -20,6 +33,7 @@ export default function DashboardPage() {
 
 	useEffect(() => {
 		verifyCurrentUser()
+		validate()
 	}, [verifyCurrentUser])
 
 	// solves hydration issues
@@ -29,10 +43,12 @@ export default function DashboardPage() {
 
 	return (
 		<div className="h-full w-full p-5 text-lg font-bold text-white">
-			{currentUser && (
+			{validate() ? (
 				<div className="flex h-full w-full ">
-					<p className="">{currentUser.name}</p>
+					<p className="">{currentUser?.name}</p>
 				</div>
+			) : (
+				<div className="text-2xl font-bold text-white">No user sotred in "currentUser"</div>
 			)}
 		</div>
 	)

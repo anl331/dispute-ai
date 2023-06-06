@@ -9,12 +9,14 @@ type ClientStore = {
 	isLoading: boolean
 	error: null
 	clients: any[] | null
+	googleUsed: boolean
 }
 
 type Actions = {
 	getClients: () => void
 	setcurrentUserId: (id: number) => void
 	setCurrentUser: (currentUser: any) => void
+	setGoogleUsed: (currentUser: any) => void
 }
 
 const clientStore = (set) => ({
@@ -23,6 +25,7 @@ const clientStore = (set) => ({
 	isLoading: true,
 	error: null,
 	clients: [],
+	googleUsed: false,
 	getClients: async () => {
 		try {
 			const allClients = await getAllClients()
@@ -36,6 +39,9 @@ const clientStore = (set) => ({
 	},
 	setCurrentUser: (currentUser) => {
 		set({ currentUser })
+	},
+	setGoogleUsed: (googleUsed) => {
+		set({ googleUsed })
 	},
 })
 
