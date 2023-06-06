@@ -4,7 +4,7 @@ import { getUserData } from "@/appwrite"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
 	const router = useRouter()
 
 	useEffect(() => {

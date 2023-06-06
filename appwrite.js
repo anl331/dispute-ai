@@ -11,13 +11,11 @@ client
 
 const getUserData = async () => {
     try {
-        const user = await account.get();
-        return user
+        await account.get();
     } catch (error) {
         throw new Error(error.message)
     }
 }
-
 
 export {
     client,

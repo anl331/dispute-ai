@@ -13,6 +13,7 @@ const RegisterForm = () => {
 	const password1 = useRef(null)
 	const password2 = useRef(null)
 	const [isLoading, setIsLoading] = useState(false)
+	const [authIsLoading, setAuthIsLoading] = useState(false)
 	const [passwordMatch, setPasswordMatch] = useState("")
 	const [registerErrorMessage, setRegisterErrorMessage] = useState("")
 
@@ -60,6 +61,10 @@ const RegisterForm = () => {
 				clearTimeout()
 			}
 		)
+	}
+
+	const handleGoogleLogin =() => {
+		account.createOAuth2Session("google" , "http://localhost:3000/dashboard" , "http://localhost:3000/login")
 	}
 
 	const handleSubmit = (event) => {
@@ -120,7 +125,7 @@ const RegisterForm = () => {
 				</div>
 
 				<div>
-					<button onClick={() => account.createOAuth2Session("google")} type="submit" className="flex w-full items-center gap-3 rounded bg-white px-4 py-2 text-[#757575]">
+					<button onClick={handleGoogleLogin} type="submit" className="flex w-full items-center gap-3 rounded bg-white px-4 py-2 text-[#757575]">
 						<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M23.5 12.7603C23.5 11.9478 23.4271 11.1665 23.2917 10.4165H12.5V14.8488H18.6667C18.401 16.2811 17.5938 17.4946 16.3802 18.3071V21.1821H20.0833C22.25 19.1873 23.5 16.2498 23.5 12.7603Z" fill="#4285F4" />
 							<path d="M12.5 23.9585C15.5937 23.9585 18.1875 22.9325 20.0833 21.1825L16.3802 18.3075C15.3542 18.995 14.0417 19.4012 12.5 19.4012C9.51561 19.4012 6.98957 17.3856 6.08853 14.6772H2.26041V17.646C4.14582 21.3908 8.02082 23.9585 12.5 23.9585Z" fill="#34A853" />
@@ -137,5 +142,3 @@ const RegisterForm = () => {
 }
 
 export default RegisterForm
-
-// A user with the same email already exists in your project.
