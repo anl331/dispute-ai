@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en">
 			<body className={`flex h-screen overflow-y-hidden bg-[#14161f] `}>
 				{/* sidebar */}
-				<div className="flex h-screen w-20 flex-col items-center gap-10 border-r border-r-white/10 bg-white/10 py-3 text-white">
+				<div className="flex my-3 w-20 flex-col items-center gap-10 border-r border-y border-white/10 bg-white/10 py-3 text-white rounded-tr-2xl rounded-br-2xl">
 					<a href="/" className="rounded-full bg-transparent p-3 transition-colors duration-300 ease-in-out hover:bg-white/20 hover:p-3">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
 							<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -67,14 +67,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 							<p className="font-xs text-3xl font-light ">Ai</p>
 						</div>
 						<div className="flex flex-1 justify-center">
-							<div className="flex h-10 w-[55%] items-center gap-3 rounded-full bg-white/10 px-5 text-white">
+							<div className="flex w-[55%] h-12 items-center gap-3 rounded-full bg-white/5 px-5 text-white">
 								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5">
 									<path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
 								</svg>
 								<form>
-									<input type="text" className="w-full flex-1 rounded-full bg-transparent pl-1 outline-none placeholder:text-white" placeholder="Search for client..." />
+									<input type="text" className="w-full flex-1 rounded-full bg-transparent pl-1 outline-none placeholder:text-white/20" placeholder="Search for client..." />
 									<button type="submit" hidden>
-										search
 									</button>
 								</form>
 							</div>

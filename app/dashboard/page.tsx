@@ -42,13 +42,13 @@ export default function DashboardPage() {
 	if (!mounted) return null
 
 	return (
-		<div className="h-full w-full p-5 text-lg font-bold text-white">
+		<div className="h-full w-full p-5 text-white">
 			{validate() ? (
 				<div className="flex h-full w-full ">
 					<p className="">{currentUser?.name}</p>
 				</div>
 			) : (
-				<div className="text-2xl font-bold text-white">No user sotred in "currentUser"</div>
+				<div className="text-white">No user sotred in "currentUser"</div>
 			)}
 		</div>
 	)
