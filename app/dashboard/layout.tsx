@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 	return (
 		<html lang="en">
-			<body className={`flex h-screen overflow-y-hidden bg-[#14161f] `}>
+			<body className={`flex h-screen overflow-y-hidden bg-[#14161f] debug-screens`}>
 				{/* sidebar */}
 				<div className="flex my-3 w-20 flex-col items-center gap-10 border-r border-y border-white/10 bg-white/10 py-3 text-white rounded-tr-2xl rounded-br-2xl">
 					<a href="/" className="rounded-full bg-transparent p-3 transition-colors duration-300 ease-in-out hover:bg-white/20 hover:p-3">

@@ -62,7 +62,7 @@ export function AvatarMenu() {
 								<p className="text-[18px] tracking-wider">{currentUser?.name}</p>
 								<p className="text-[0.7rem] font-light">{currentUser?.email}</p>
 							</div>
-							<Badge className=" bg-yellow-500 hover:">Pro</Badge>
+							<Badge className=" bg-yellow-500 cursor-default select-none">Pro</Badge>
 						</div>
 					</DropdownMenuLabel>
 

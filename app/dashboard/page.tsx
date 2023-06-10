@@ -41,15 +41,5 @@ export default function DashboardPage() {
 	useEffect(() => setMounted(true), [])
 	if (!mounted) return null
 
-	return (
-		<div className="h-full w-full p-5 text-white">
-			{validate() ? (
-				<div className="flex h-full w-full ">
-					<p className="">{currentUser?.name}</p>
-				</div>
-			) : (
-				<div className="text-white">No user sotred in "currentUser"</div>
-			)}
-		</div>
-	)
+	return <></>
 }
